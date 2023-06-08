@@ -18,6 +18,8 @@
     "@angular/platform-browser": "^16.0.4",
     "@angular/platform-browser-dynamic": "^16.0.4",
     "@angular/router": "^16.0.4",
+    "@ngx-matomo/router": "^4.1.0",
+    "@ngx-matomo/tracker": "^4.1.0",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
@@ -28,12 +30,15 @@
     "@angular/compiler-cli": "^16.0.4",
     "@types/jasmine": "~3.10.0",
     "@types/node": "^12.11.1",
+    "autoprefixer": "^10.4.14",
     "jasmine-core": "~3.10.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.1.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
+    "postcss": "^8.4.24",
+    "tailwindcss": "^3.3.2",
     "typescript": "~5.0.4"
   }
 }

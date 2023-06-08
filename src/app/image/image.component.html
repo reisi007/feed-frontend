@@ -1,0 +1,14 @@
+<div
+  [style.padding-top]="'min('+topPaddingPercent+'%,95vh)'"
+  [style.background-image]="'url('+computeImageFilename(filename,20)"
+  class="relative overflow-hidden bg-cover bg-center"
+>
+  <!--suppress HtmlRequiredAltAttribute, RequiredAttributes -->
+  <img
+    [sizes]="sizes"
+    [srcset]="srcSet"
+    decoding="async"
+    class="absolute inset-0 bg-center h-full w-full object-contain backdrop-blur-2xl"
+    loading="lazy"
+  />
+</div>
