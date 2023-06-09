@@ -1,3 +1,6 @@
+<header>
+  <a class="bg-black w-full p-2 text-center text-white block" href="https://reisinger.pictures/impressum">Impressum & Kontakt</a>
+</header>
 <main>
   <div class="grid grid-cols-1 ">
     <app-image *ngFor="let image of data$ | async" [filename]="image.name" [height]="image.height"/>
