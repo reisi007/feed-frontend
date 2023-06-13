@@ -5,6 +5,6 @@
   <div class="grid grid-cols-1 ">
     <app-image *ngFor="let image of data$ | async" [filename]="image.name" [height]="image.height"/>
   </div>
-  <app-intersection-listener rootMargin="0px 0px 500px 0px"
+  <app-intersection-listener  rootMargin="0px 0px 2048px 0px"
     (onIntersectionChange)="loadMoreImages($event)"></app-intersection-listener>
 </main>
