@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {BehaviorSubject, filter, flatMap, map, mergeMap, Observable, shareReplay, takeUntil} from 'rxjs';
+import {BehaviorSubject, filter, map, mergeMap, Observable, shareReplay, takeUntil} from 'rxjs';
 import {OnDestroyable} from './OnDestroyable';
 import {environment} from '../environments/environment';
+import {TrackingService} from './tracking/tracking.service';
 
 const STEP = 10;
 
@@ -19,17 +20,29 @@ export class FetchImageService extends OnDestroyable {
     shareReplay(1),
   );
 
-  constructor(private httpClient: HttpClient) {
+  constructor(
+    private httpClient: HttpClient,
+    private tracking: TrackingService,
+  ) {
     super();
 
-    this.imageFetchCount$.pipe(
-          takeUntil(this.onDestroy$),
-          filter(v => v > 0),
-          mergeMap(value => this.requestMoreImages((value - 1) * STEP)),
-        )
-        .subscribe(newEntries => {
-          this._data$.next(this._data$.value.concat(newEntries));
-        });
+    const imageFetchCountObservable$ = this.imageFetchCount$.pipe(
+      takeUntil(this.onDestroy$),
+      filter(v => v > 0),
+    );
+
+    imageFetchCountObservable$.pipe(mergeMap(value => this.requestMoreImages((value - 1) * STEP)))
+                              .subscribe(newEntries => {
+                                this._data$.next(this._data$.value.concat(newEntries));
+                              });
+
+    imageFetchCountObservable$
+      .pipe(
+        filter(v => v > 1),
+        map(v => v - 1),
+      )
+      .subscribe(reloadCnt => tracking.trackEvent('reload', 'cnt', reloadCnt.toString(10)));
+
   }
 
   loadMoreImages() {
